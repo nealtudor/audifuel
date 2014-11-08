@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Audi Fuel Consumption</title>
+		<script src="http://c3js.org/js/d3.min-3bff8220.js" type="text/javascript"></script>
+		<script src="http://c3js.org/js/c3.min-b4e07444.js" type="text/javascript"></script>
+		<link href="http://c3js.org/css/c3-f750e4d4.css" rel="stylesheet" type="text/css" media="screen">
+	</head>
+	<body>
+		<center><h1 class="title">Audi A4 Fuel Consumption Data</h1></center>
+    <div id='chart'></div>
+    <script>
+    	// Create columns data
+		var columns = [];
+        columns.push(['x', '2014-04-29', '2014-05-02', '2014-05-08', '2014-05-17', '2014-05-30', '2014-06-15', '2014-06-20', '2014-06-29', '2014-07-6','2014-07-14', '2014-07-20','2014-08-9', '2014-09-2', '2014-09-14']);
+        columns.push(['MPG', 25.83, 21.2, 22.26, 25.51, 22.47, 23.27, 22.06, 24.9, 22.68, 26.11, 24.08, 23.25, 21.19, 21.64]);
+        columns.push(['Fuel', 3.96, 3.8, 3.62, 3.9, 4.5, 3.17, 3.57, 4.06, 4.28, 3.96, 3.41, 3.65, 3.85, 3.38]);
+        // Find Average MPG
+        var sum = 0;
+        for(var i = 1; i < columns[0].length;i++) {
+        	sum += columns[1][i];
+        }
+        var avgMPG = sum / columns[1].length
+
+		// Create Chart:
+        var chart = c3.generate({
+			data: {
+				x: 'x',
+				xFormat: '%Y-%m-%d',
+				columns: columns,
+				axes: {
+					MPG: 'y',
+					Fuel: 'y2'
+				}
+			},
+			colors: {
+				MPG: '#ff0000',
+				Fuel: '#00ff00'
+			},
+			axis: {
+				x: {
+					type: 'timeseries',
+					tick: {
+						format: '%Y-%m-%d'
+					}
+				},
+				y2: {
+					show: true
+				}
+			},
+			grid: {
+				x: {
+					show: true
+				},
+				y: {
+					lines: [{value: avgMPG, text: 'Average MPG' + " " + avgMPG.toFixed(2)}]
+				}
+			}	
+		});    
+    </script>
+	</body>
+</html>
